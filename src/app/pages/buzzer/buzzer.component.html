@@ -1,0 +1,288 @@
+<div class="buzzer-screen">
+
+  <div class="top-banner">
+    <span class="kunai-deco">🗲</span>
+    <h1>NARUTO早押しクイズ</h1>
+    <span class="kunai-deco">🗲</span>
+  </div>
+
+  <div *ngIf="loading" class="loading-area">読み込み中…</div>
+
+  <div class="load-error-area" *ngIf="loadError">
+    <p class="load-error-area__message">⚠️ キャラクターデータの読み込みに失敗しました。</p>
+    <p class="load-error-area__hint">通信環境をご確認のうえ、もう一度お試しください。</p>
+    <button type="button" class="load-error-area__retry" (click)="retryLoad()">再読み込み</button>
+  </div>
+
+  <!-- スタート前の設定画面 -->
+  <div class="setup-card" *ngIf="!loading && !loadError && !started && !finished">
+
+    <div class="resume-area" *ngIf="savedProgress">
+      <p>
+        前回の続きがあります(問題{{ savedProgress.questionIndex }}/{{ savedProgress.questionCount }}、
+        プレイヤー{{ savedProgress.playerCount }}人{{ savedProgress.playerCount === 1 ? '＋CPU' + savedProgress.cpuCount + '人' : '' }})
+      </p>
+      <button type="button" class="resume-btn" (click)="resumeGame()">続きから</button>
+    </div>
+
+    <p class="setup-category">【ゲーム設定】</p>
+
+    <div class="setup-section">
+      <p class="setup-section__title">プレイ人数</p>
+      <div class="player-count-buttons">
+        <button
+          type="button"
+          *ngFor="let count of playerCountOptions"
+          class="player-count-btn"
+          [class.selected]="playerCount === count"
+          (click)="setPlayerCount(count)">
+          {{ count }}人
+        </button>
+      </div>
+    </div>
+
+    <div class="setup-section">
+      <p class="setup-section__title">問題数</p>
+      <div class="player-count-buttons">
+        <button
+          type="button"
+          *ngFor="let count of questionCountOptions"
+          class="player-count-btn"
+          [class.selected]="questionCount === count"
+          (click)="setQuestionCount(count)">
+          {{ count }}問
+        </button>
+      </div>
+    </div>
+
+    <div class="setup-section">
+      <p class="setup-section__title">目標スコア(先に到達した時点で終了)</p>
+      <div class="target-score-form">
+        <input
+          type="number"
+          [ngModel]="targetScore"
+          (ngModelChange)="setTargetScore($event)"
+          [min]="targetScoreMin"
+          [max]="maxTargetScore"
+          [step]="targetScoreStep">
+        <span class="unit">点</span>
+        <span class="target-score-range">({{ targetScoreMin }}〜{{ maxTargetScore }}点)</span>
+      </div>
+      <p class="setup-note">
+        「{{ questionCount }}問終える」または「誰かが{{ targetScore }}点に到達する」、どちらか早い方でゲーム終了します。
+        (1問正解+{{ correctPoints }}点なので、{{ questionCount }}問では最大{{ maxTargetScore }}点まで到達可能です)
+      </p>
+    </div>
+
+    <ng-container *ngIf="isSoloWithNpc()">
+      <p class="setup-category">【対戦設定】</p>
+      <div class="setup-section">
+        <p class="setup-section__title">CPU人数(1人プレイの対戦相手)</p>
+        <div class="player-count-buttons">
+          <button
+            type="button"
+            *ngFor="let count of cpuCountOptions"
+            class="player-count-btn"
+            [class.selected]="cpuCount === count"
+            (click)="setCpuCount(count)">
+            CPU{{ count }}人
+          </button>
+        </div>
+        <p class="setup-note">
+          1人プレイのため、疑似NPC「CPU1〜CPU{{ cpuCount }}」が対戦相手として参加します。
+        </p>
+      </div>
+    </ng-container>
+
+    <p class="setup-desc">早押しキーの割り当ては以下の通りです。</p>
+    <div class="player-key-list">
+      <div class="player-key-row" *ngFor="let player of players">
+        <span class="player-name">
+          {{ player.label }}
+          <span class="npc-badge" *ngIf="player.isNpc">CPU</span>
+        </span>
+        <span class="player-key" *ngIf="!player.isNpc">{{ player.key.toUpperCase() }}</span>
+        <span class="player-key player-key--npc" *ngIf="player.isNpc">自動</span>
+      </div>
+    </div>
+    <p class="setup-desc">ライフは3、正解+{{ correctPoints }}点、不正解-{{ wrongPoints }}点(0点未満にはならない)。ライフが0になると脱落です。</p>
+    <button type="button" class="start-btn" (click)="startGame()">スタート</button>
+  </div>
+
+  <!-- 終了画面 -->
+  <div class="result-card" *ngIf="finished">
+    <h2>結果発表</h2>
+
+    <p class="target-score-banner" *ngIf="targetScoreWinner">
+      🎯 {{ targetScoreWinner.label }} が目標スコア{{ targetScore }}点に到達して優勝！
+    </p>
+
+    <div
+      class="rank-row"
+      *ngFor="let player of rankedPlayers(); let i = index"
+      [class.rank-row--winner]="i === 0">
+      <span class="rank-medal">{{ i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '' }}</span>
+      <span class="rank-name">
+        {{ player.label }}
+        <span class="npc-badge" *ngIf="player.isNpc">CPU</span>
+      </span>
+      <span class="rank-score">{{ player.score }}点</span>
+      <span class="rank-lives">残ライフ：{{ player.lives }}</span>
+    </div>
+
+    <div class="global-ranking" *ngIf="ranking.length">
+      <p class="global-ranking__title">🏆 同条件(問題数{{ questionCount }}問・目標{{ targetScore }}点)のランキング</p>
+      <div class="global-ranking__row" *ngFor="let r of ranking; let i = index">
+        <span class="global-ranking__rank">{{ i + 1 }}</span>
+        <span class="global-ranking__name">{{ r.nickname }}{{ r.won ? ' 🏆' : '' }}</span>
+        <span class="global-ranking__score">{{ r.score }}点</span>
+      </div>
+    </div>
+
+    <div class="result-actions">
+      <button type="button" class="start-btn" (click)="playAgain()">もう一回やる</button>
+      <button type="button" class="start-btn start-btn--secondary" (click)="backToHome()">早押しクイズのホームに戻る</button>
+    </div>
+  </div>
+
+  <!-- ゲーム画面 -->
+  <div
+    class="game-card"
+    [style.background-image]="currentQuestion ? 'url(' + currentQuestion.backgroundUrl + ')' : null"
+    *ngIf="!loading && started && !finished">
+
+    <div class="game-meta-row">
+      <p class="question-counter">Q{{ questionIndex }}/{{ totalQuestions }}</p>
+      <p class="target-score-chip">🎯 目標 {{ targetScore }}点</p>
+      <button type="button" class="pause-btn" (click)="requestPause()" aria-label="中断する">⏸ 中断</button>
+    </div>
+
+    <div class="progress-bars">
+      <div class="progress-bar" aria-label="問題の進み具合">
+        <div class="progress-bar__fill progress-bar__fill--question" [style.width.%]="questionProgressPercent"></div>
+      </div>
+      <div class="progress-bar" aria-label="目標スコアまでの進み具合">
+        <div class="progress-bar__fill progress-bar__fill--score" [style.width.%]="targetScoreProgressPercent"></div>
+      </div>
+    </div>
+
+    <p class="question-text">このキャラクターは誰？</p>
+    <div class="character-image-area">
+      <img [src]="currentQuestion?.imageUrl" alt="このキャラクターは誰？" class="character-image">
+    </div>
+
+    <p class="question-timer" *ngIf="!buzzedPlayer && !revealedAnswer">
+      ⏱ 残り{{ questionTimeRemaining }}秒
+    </p>
+
+    <div class="players-row">
+      <div
+        class="player-status"
+        *ngFor="let player of players"
+        [ngClass]="{
+          'player-status--buzzed': buzzedPlayer?.id === player.id,
+          'player-status--npc-thinking': buzzedPlayer?.id === player.id && npcPhase === 'thinking',
+          'player-status--queued': buzzRank(player) !== null && buzzedPlayer?.id !== player.id,
+          'player-status--out': player.lives <= 0,
+          'player-status--failed': failedPlayerIds.has(player.id) && player.lives > 0
+        }">
+        <span class="player-status__rank-badge" *ngIf="buzzRank(player) !== null">{{ buzzRank(player) }}番手</span>
+        <span class="player-status__answering-badge" *ngIf="buzzedPlayer?.id === player.id">
+          <ng-container *ngIf="player.isNpc">
+            {{ npcPhase === 'buzzed' ? '🔔早押し！' : '🤔考え中' }}
+            <span class="thinking-dots" *ngIf="npcPhase === 'thinking'"><span></span><span></span><span></span></span>
+          </ng-container>
+          <ng-container *ngIf="!player.isNpc">回答中</ng-container>
+        </span>
+        <span class="player-status__failed-badge" *ngIf="failedPlayerIds.has(player.id) && player.lives > 0">誤答</span>
+
+        <p class="player-status__name">
+          {{ player.label }}
+          <span class="npc-badge" *ngIf="player.isNpc">CPU</span>
+          <span class="player-status__key" *ngIf="!player.isNpc">({{ player.key.toUpperCase() }})</span>
+        </p>
+        <p class="player-status__score">{{ player.score }}点</p>
+        <p class="player-status__lives">
+          <span *ngFor="let i of [0,1,2]">{{ i < player.lives ? '❤️' : '🖤' }}</span>
+        </p>
+        <button
+          type="button"
+          class="buzz-btn"
+          *ngIf="!player.isNpc"
+          [disabled]="!canBuzz(player)"
+          (click)="buzzIn(player)">
+          🔔 早押し
+        </button>
+        <p class="buzz-btn buzz-btn--npc" *ngIf="player.isNpc">🤖 自動早押し</p>
+      </div>
+    </div>
+
+    <!-- 誰も答えられなかった/時間切れ時の正解表示 -->
+    <div class="reveal-area" *ngIf="revealedAnswer">
+      <p>正解：{{ revealedAnswer }}</p>
+    </div>
+
+    <div class="skip-area" *ngIf="!buzzedPlayer && !revealedAnswer">
+      <button type="button" class="skip-btn" (click)="skipQuestion()">誰も正解できず(スキップ)</button>
+    </div>
+  </div>
+
+  <!-- 回答用モーダル -->
+  <div class="answer-modal-backdrop" *ngIf="buzzedPlayer">
+    <div class="answer-modal">
+      <p class="buzzed-caption">
+        {{ buzzedPlayer.label }}<span class="npc-badge" *ngIf="buzzedPlayer.isNpc">CPU</span> が回答権を獲得！
+      </p>
+      <p class="queue-caption" *ngIf="buzzQueue.length > 1">
+        次点で待機中：{{ buzzQueue.length - 1 }}人
+      </p>
+
+      <div class="npc-thinking" *ngIf="!showAnswer && buzzedPlayer.isNpc" [ngClass]="'npc-thinking--' + npcPhase">
+        <p class="npc-thinking__phase" *ngIf="npcPhase === 'buzzed'">🔔 早押し！</p>
+        <ng-container *ngIf="npcPhase === 'thinking'">
+          <p class="npc-thinking__phase">🤔 {{ buzzedPlayer.label }}が考え中…</p>
+          <div class="npc-thinking__bubble">
+            <span class="thinking-dots thinking-dots--lg"><span></span><span></span><span></span></span>
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="letter-game" *ngIf="!showAnswer && !buzzedPlayer.isNpc">
+        <p class="answer-timer">⏱ この文字を残り{{ letterTimeRemaining }}秒で選んで</p>
+        <p class="letter-progress">
+          <span
+            class="letter-progress__char"
+            *ngFor="let letter of currentQuestion?.kanaLetters; let i = index"
+            [ngClass]="{ 'letter-progress__char--filled': i < currentLetterIndex }">
+            {{ i < currentLetterIndex ? letter : '？' }}
+          </span>
+        </p>
+        <div class="letter-choices">
+          <button
+            type="button"
+            class="letter-choice-btn"
+            *ngFor="let choice of letterChoices"
+            (click)="selectLetter(choice)">
+            {{ choice }}
+          </button>
+        </div>
+      </div>
+
+      <div class="answer-reveal" *ngIf="showAnswer">
+        <p [ngClass]="wasCorrect ? 'result-correct' : 'result-incorrect'">
+          {{ wasCorrect ? '⭕ 正解！' : '❌ 不正解…' }}
+        </p>
+        <p *ngIf="wasCorrect">正解：{{ currentQuestion?.answer }}</p>
+        <p class="advance-note" *ngIf="!wasCorrect && buzzQueue.length > 0">次のプレイヤーに回答権が移ります…</p>
+        <button type="button" class="next-btn" *ngIf="wasCorrect && !targetScoreWinner" (click)="nextQuestion()">次の問題へ</button>
+      </div>
+    </div>
+  </div>
+
+  <app-pause-dialog
+    *ngIf="showPauseConfirm"
+    (confirmPause)="confirmPause()"
+    (cancelPause)="cancelPause()">
+  </app-pause-dialog>
+
+</div>

@@ -1,0 +1,177 @@
+<div class="spinner-area" *ngIf="loading">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div class="load-error-area" *ngIf="loadError">
+  <p class="load-error-area__message">⚠️ ポケモンデータの読み込みに失敗しました。</p>
+  <p class="load-error-area__hint">通信環境をご確認のうえ、もう一度お試しください。</p>
+  <button type="button" class="load-error-area__retry" (click)="retryLoad()">再読み込み</button>
+</div>
+
+<div class="finished-area" *ngIf="finished && theme" [ngClass]="theme.effectType">
+
+  <div class="finished-card result-card">
+    <img [src]="theme.imageUrl" [alt]="theme.title" class="result-image">
+    <h2>{{ theme.title }}</h2>
+    <p class="message">{{ theme.message }}</p>
+
+    <p class="finished-card__score">
+      <span class="finished-card__correct">{{ correctCount }}</span>
+      <span class="finished-card__slash">/</span>
+      <span class="finished-card__total">{{ config.questionCount }}</span>
+      <span class="finished-card__unit">問正解</span>
+    </p>
+
+    <div class="finished-card__actions">
+      <button type="button" class="back-btn" (click)="stopEffects()" routerLink="/">
+        <span class="pokeball-icon"></span>
+        トップへ戻る
+      </button>
+      <button
+        type="button"
+        class="ranking-btn"
+        (click)="stopEffects()"
+        routerLink="/results"
+        [queryParams]="{ difficulty: difficultyName }">
+        🏆 ランキングを見る
+      </button>
+    </div>
+  </div>
+
+  <div class="dex-section" *ngIf="askedPokemonList.length">
+    <h3 class="dex-section__title">
+      <span class="pokeball-icon"></span>
+      今回出会ったポケモン図鑑
+      <span class="pokeball-icon"></span>
+    </h3>
+    <p class="dex-section__caption">今回のクイズで出題された{{ askedPokemonList.length }}匹をふりかえろう</p>
+    <div class="dex-grid">
+      <div class="dex-card" *ngFor="let p of askedPokemonList">
+        <span class="dex-card__no">No.{{ p.no }}</span>
+        <img [src]="p.imageUrl" [alt]="p.name" class="dex-card__image">
+        <p class="dex-card__name">{{ p.name }}</p>
+        <p class="dex-card__tags">
+          <span class="dex-card__tag" *ngFor="let label of p.questionTypeLabels">{{ label }}で出題</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="hoge-screen" *ngIf="!loading && !finished && !loadError">
+<form [formGroup]="form">
+
+  <!-- 問題の表示エリア -->
+  <div class="question-area">
+    <p>Q{{ questionIndex }}/{{ config.questionCount }}．{{ questionText }}</p>
+    <button type="button" class="pause-btn" (click)="requestPause()" aria-label="中断する">
+      ⏸ 中断
+    </button>
+  </div>
+  <div class="question-progress-bar">
+    <div class="question-progress-bar__fill" [style.width.%]="questionProgressPercent"></div>
+  </div>
+
+  <div class="quiz-body">
+
+    <!-- ポケモン画像エリア(仮) -->
+    <div class="image-area" *ngIf="config.showImage || imageHintRevealed">
+      <img [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + form.get('number')?.value + '.png'" alt="ポケモン画像">
+    </div>
+
+    <div class="hint-area" *ngIf="config.hintAvailable">
+      <div class="hint-area__header">
+        <span class="pokeball-icon"></span>
+        <span class="hint-area__title">ヒント</span>
+      </div>
+      <p class="hint-caption">残りヒント：{{ hintsRemaining }} / {{ maxHints }}回</p>
+      <div class="hint-buttons">
+        <button
+          type="button"
+          class="hint-btn hint-btn--image"
+          *ngIf="!imageHintRevealed"
+          [disabled]="hintsRemaining <= 0"
+          (click)="revealImageHint()">
+          👁️ 画像を表示
+        </button>
+        <button
+          type="button"
+          class="hint-btn hint-btn--reduce"
+          *ngIf="!choicesReduced && choices.length > 2"
+          [disabled]="hintsRemaining <= 0"
+          (click)="reduceChoicesHint()">
+          ✂️ 選択肢を減らす
+        </button>
+      </div>
+    </div>
+
+    <!-- 補足情報の表示エリア -->
+    <div class="info-area">
+      <div class="info-row" *ngIf="showName">
+        <label>名前：</label>
+        <input type="text" [value]="form.get('name')?.value" readonly>
+      </div>
+      <div class="info-row" *ngIf="config.infoFields.includes('no') && form.get('number')?.value">
+        <label>図鑑番号：</label>
+        <input type="text" [value]="form.get('number')?.value" readonly>
+      </div>
+      <div class="info-row" *ngIf="config.infoFields.includes('form') && form.get('form')?.value">
+        <label>フォルム：</label>
+        <input type="text" [value]="form.get('form')?.value" readonly>
+      </div>
+      <div class="info-row" *ngIf="config.infoFields.includes('types') && questionType !== 'type' && form.get('types')?.value?.length">
+        <label>タイプ：</label>
+        <input type="text" [value]="form.get('types')?.value" readonly>
+      </div>
+      <div class="info-row" *ngIf="config.infoFields.includes('abilities') && questionType !== 'ability' && form.get('abilities')?.value?.length">
+        <label>特性：</label>
+        <input type="text" [value]="form.get('abilities')?.value" readonly>
+      </div>
+      <div class="info-row" *ngIf="config.infoFields.includes('hiddenAbilities') && form.get('hiddenAbilities')?.value?.length">
+        <label>隠れ特性：</label>
+        <input type="text" [value]="form.get('hiddenAbilities')?.value" readonly>
+      </div>
+      <div class="info-row" *ngIf="config.infoFields.includes('evolutions') && form.get('evolutions')?.value?.length">
+        <label>進化系列：</label>
+        <input type="text" [value]="form.get('evolutions')?.value" readonly>
+      </div>
+      <div class="info-row" *ngIf="config.infoFields.includes('height') && questionType !== 'height' && form.get('height')?.value != null">
+        <label>高さ：</label>
+        <input type="text" [value]="form.get('height')?.value + 'm'" readonly>
+      </div>
+      <div class="info-row" *ngIf="config.infoFields.includes('weight') && questionType !== 'weight' && form.get('weight')?.value != null">
+        <label>重さ：</label>
+        <input type="text" [value]="form.get('weight')?.value + 'kg'" readonly>
+      </div>
+      <div class="info-row" *ngIf="config.infoFields.includes('genus') && questionType !== 'genus' && form.get('genus')?.value">
+        <label>分類：</label>
+        <input type="text" [value]="form.get('genus')?.value" readonly>
+      </div>
+      <div class="info-row" *ngIf="config.infoFields.includes('color') && questionType !== 'color' && form.get('color')?.value">
+        <label>色：</label>
+        <input type="text" [value]="form.get('color')?.value" readonly>
+      </div>
+    </div>
+
+    <!-- 選択肢ボタン -->
+   <div class="choices-area">
+  <button
+    type="button"
+    *ngFor="let choice of choices; let i = index"
+    class="choice-btn"
+    [ngClass]="'choice-' + (i + 1)"
+    (click)="registerAnswer(choice)">
+    {{ choice }}
+  </button>
+</div>
+
+  </div>
+
+</form>
+</div>
+
+<app-pause-dialog
+  *ngIf="showPauseConfirm"
+  (confirmPause)="confirmPause()"
+  (cancelPause)="cancelPause()">
+</app-pause-dialog>

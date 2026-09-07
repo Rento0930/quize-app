@@ -1,0 +1,374 @@
+[
+  {
+    "name": "うずまきナルト",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/d/d6/Naruto_Part_I.png/revision/latest/scale-to-width-down/300?cb=20210223094656",
+    "kana": "ウズマキナルト",
+    "background": 10
+  },
+  {
+    "name": "うちはサスケ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/2/21/Sasuke_Part_1.png/revision/latest/scale-to-width-down/300?cb=20170716092103",
+    "kana": "ウチハサスケ",
+    "background": 4
+  },
+  {
+    "name": "春野サクラ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/6/64/Sakura_Part_1.png/revision/latest/scale-to-width-down/300?cb=20170726101444",
+    "kana": "ハルノサクラ",
+    "background": 1
+  },
+  {
+    "name": "はたけカカシ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/2/27/Kakashi_Hatake.png/revision/latest/scale-to-width-down/300?cb=20170628120149",
+    "kana": "ハタケカカシ",
+    "background": 1
+  },
+  {
+    "name": "日向ヒナタ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/9/97/Hinata.png/revision/latest/scale-to-width-down/300?cb=20141010104729",
+    "kana": "ヒュウガヒナタ",
+    "background": 1
+  },
+  {
+    "name": "奈良シカマル",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/4/44/Shikamaru_Part_I.png/revision/latest/scale-to-width-down/300?cb=20170419112314",
+    "kana": "ナラシカマル",
+    "background": 1
+  },
+  {
+    "name": "山中いの",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/d/dd/Ino.png/revision/latest/scale-to-width-down/300?cb=20170622102745",
+    "kana": "ヤマナカイノ",
+    "background": 1
+  },
+  {
+    "name": "秋道チョウジ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/7/7d/Ch%C5%8Dji_Akimichi.png/revision/latest/scale-to-width-down/300?cb=20200426204415",
+    "kana": "アキミチチョウジ",
+    "background": 1
+  },
+  {
+    "name": "犬塚キバ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/0/03/Kiba.png/revision/latest/scale-to-width-down/300?cb=20180124105049",
+    "kana": "イヌズカキバ",
+    "background": 1
+  },
+  {
+    "name": "油女シノ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/9/9c/Shino.png/revision/latest/scale-to-width-down/300?cb=20160924021327",
+    "kana": "アブラメシノ",
+    "background": 1
+  },
+  {
+    "name": "ロック・リー",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/9/97/Rock_Lee_Part_I.png/revision/latest/scale-to-width-down/300?cb=20181229065526",
+    "kana": "ロックリー",
+    "background": 1
+  },
+  {
+    "name": "テンテン",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/d/da/Tenten_Part_1.png/revision/latest/scale-to-width-down/300?cb=20180510203032",
+    "kana": "テンテン",
+    "background": 1
+  },
+  {
+    "name": "我愛羅",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/4/4a/Gaara_p1.png/revision/latest/scale-to-width-down/300?cb=20170913105628",
+    "kana": "ガアラ",
+    "background": 11
+  },
+  {
+    "name": "テマリ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/b/bb/Temari_newshot.png/revision/latest/scale-to-width-down/300?cb=20180131102406",
+    "kana": "テマリ",
+    "background": 11
+  },
+  {
+    "name": "カンクロウ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/7/7d/Kankur%C5%8D1.png/revision/latest/scale-to-width-down/300?cb=20150125171209",
+    "kana": "カンクロウ",
+    "background": 11
+  },
+  {
+    "name": "自来也",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/2/21/Profile_Jiraiya.PNG/revision/latest/scale-to-width-down/300?cb=20160115173538",
+    "kana": "ジライヤ",
+    "background": 7
+  },
+  {
+    "name": "大蛇丸",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/1/14/Orochimaru_Infobox.png/revision/latest/scale-to-width-down/300?cb=20150925223113",
+    "kana": "オロチマル",
+    "background": 6
+  },
+  {
+    "name": "綱手",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/b/b3/Tsunade_infobox2.png/revision/latest/scale-to-width-down/300?cb=20150108211132",
+    "kana": "ツナデ",
+    "background": 6
+  },
+  {
+    "name": "猿飛ヒルゼン",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/e/e4/Hiruzen_Sarutobi.png/revision/latest/scale-to-width-down/300?cb=20160125204719",
+    "kana": "サルトビヒルゼン",
+    "background": 6
+  },
+  {
+    "name": "波風ミナト",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/7/71/Minato_Namikaze.png/revision/latest/scale-to-width-down/300?cb=20160125175116",
+    "kana": "ナミカゼミナト",
+    "background": 8
+  },
+  {
+    "name": "千手柱間",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/7/7e/Hashirama_Senju.png/revision/latest/scale-to-width-down/300?cb=20160124040430",
+    "kana": "センジュハシラマ",
+    "background": 2
+  },
+  {
+    "name": "千手扉間",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/b/be/Tobirama_Senju.png/revision/latest/scale-to-width-down/300?cb=20160115192559",
+    "kana": "センジュトビラマ",
+    "background": 2
+  },
+  {
+    "name": "うちはイタチ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/b/bb/Itachi.png/revision/latest/scale-to-width-down/300?cb=20160125182202",
+    "kana": "ウチハイタチ",
+    "background": 4
+  },
+  {
+    "name": "うちはオビト",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/4/4a/Obito_Uchiha.png/revision/latest/scale-to-width-down/300?cb=20160312115221",
+    "kana": "ウチハオビト",
+    "background": 4
+  },
+  {
+    "name": "デイダラ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/0/06/Deidara.png/revision/latest/scale-to-width-down/300?cb=20160113165515",
+    "kana": "デイダラ",
+    "background": 3
+  },
+  {
+    "name": "サソリ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/f/f7/Sasori.png/revision/latest/scale-to-width-down/300?cb=20170127174522",
+    "kana": "サソリ",
+    "background": 3
+  },
+  {
+    "name": "角都",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/5/57/Kakuzu.png/revision/latest/scale-to-width-down/300?cb=20160115192126",
+    "kana": "カクズ",
+    "background": 3
+  },
+  {
+    "name": "飛段",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/e/e3/Hidan.png/revision/latest/scale-to-width-down/300?cb=20210911225839",
+    "kana": "ヒダン",
+    "background": 3
+  },
+  {
+    "name": "長門",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/4/46/Nagato.png/revision/latest/scale-to-width-down/300?cb=20150821081644",
+    "kana": "ナガト",
+    "background": 3
+  },
+  {
+    "name": "半蔵",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/7/7a/Hanz%C5%8D.png/revision/latest/scale-to-width-down/300?cb=20150108212249",
+    "kana": "ハンゾウ",
+    "background": 6
+  },
+  {
+    "name": "猿飛木ノ葉丸",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/8/89/Konohamaru_p1.png/revision/latest/scale-to-width-down/300?cb=20150122131608",
+    "kana": "サルトビコノハマル",
+    "background": 1
+  },
+  {
+    "name": "白",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/9/90/Haku.png/revision/latest/scale-to-width-down/300?cb=20150123171811",
+    "kana": "ハク",
+    "background": 9
+  },
+  {
+    "name": "桃地再不斬",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/3/37/Zabuza_Momochi.png/revision/latest/scale-to-width-down/300?cb=20150122142749",
+    "kana": "モモチザブザ",
+    "background": 9
+  },
+  {
+    "name": "うちはシスイ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/4/4c/Shisui_Uchiha.png/revision/latest/scale-to-width-down/300?cb=20140418091747",
+    "kana": "ウチハシスイ",
+    "background": 4
+  },
+  {
+    "name": "うちはイズナ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/8/83/Izuna_Uchiha.png/revision/latest/scale-to-width-down/300?cb=20170818214808",
+    "kana": "ウチハイズナ",
+    "background": 4
+  },
+  {
+    "name": "大筒木カグヤ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/6/6c/Kaguya_%C5%8Ctsutsuki.png/revision/latest/scale-to-width-down/300?cb=20180824113908",
+    "kana": "オオツツキカグヤ",
+    "background": 5
+  },
+  {
+    "name": "十尾",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/e/e6/Ten-Tails_emerges.png/revision/latest/scale-to-width-down/300?cb=20140523101840",
+    "kana": "ジュウビ",
+    "background": 5
+  },
+  {
+    "name": "黒ゼツ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/e/e9/Black_Zetsu.png/revision/latest/scale-to-width-down/300?cb=20210221064351",
+    "kana": "クロゼツ",
+    "background": 9
+  },
+  {
+    "name": "白ゼツ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/5/5f/White_Zetsu.png/revision/latest/scale-to-width-down/300?cb=20210221064842",
+    "kana": "シロゼツ",
+    "background": 9
+  },
+  {
+    "name": "うちはミコト",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/8/8e/Mikoto_Uchiha.png/revision/latest/scale-to-width-down/300?cb=20150130135950",
+    "kana": "ウチハミコト",
+    "background": 4
+  },
+  {
+    "name": "うちはフガク",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/f/f2/Fugaku.png/revision/latest/scale-to-width-down/300?cb=20180502064054",
+    "kana": "ウチハフガク",
+    "background": 4
+  },
+  {
+    "name": "うずまきクシナ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/d/db/Kushina.png/revision/latest/scale-to-width-down/300?cb=20150719165408",
+    "kana": "ウズマキクシナ",
+    "background": 1
+  },
+  {
+    "name": "三代目風影",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/4/4e/Third_Kazekage_Reincarnated.png/revision/latest/scale-to-width-down/300?cb=20160421120221",
+    "kana": "サンダイメカゼカゲ",
+    "background": 6
+  },
+  {
+    "name": "猿飛アスマ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/7/7c/Asuma.png/revision/latest/scale-to-width-down/300?cb=20150822043018",
+    "kana": "サルトビアスマ",
+    "background": 1
+  },
+  {
+    "name": "三代目水影",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/5/5f/Young_Third_Mizukage.png/revision/latest/scale-to-width-down/300?cb=20161230085951",
+    "kana": "サンダイメミズカゲ",
+    "background": 6
+  },
+  {
+    "name": "サイ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/0/07/Sai_Infobox.png/revision/latest/scale-to-width-down/300?cb=20180314110836",
+    "kana": "サイ",
+    "background": 1
+  },
+  {
+    "name": "奈良シカク",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/e/e0/Shikaku_Nara.png/revision/latest/scale-to-width-down/300?cb=20210802192328",
+    "kana": "ナラシカク",
+    "background": 1
+  },
+  {
+    "name": "秋道チョウザ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/a/a8/Ch%C5%8Dza_Akimichi.png/revision/latest/scale-to-width-down/300?cb=20180304093618",
+    "kana": "アキミチチョウザ",
+    "background": 1
+  },
+  {
+    "name": "君麻呂",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/c/c8/Kimimaro_infobox.png/revision/latest/scale-to-width-down/300?cb=20210929024649",
+    "kana": "キミマロ",
+    "background": 9
+  },
+  {
+    "name": "はたけサクモ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/3/3f/Sakumo_Hatake.png/revision/latest/scale-to-width-down/300?cb=20150504191510",
+    "kana": "ハタケサクモ",
+    "background": 1
+  },
+  {
+    "name": "志村ダンゾウ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/1/17/Danz%C5%8D.png/revision/latest/scale-to-width-down/300?cb=20171028185149",
+    "kana": "シムラダンゾウ",
+    "background": 1
+  },
+  {
+    "name": "うちはヒカク",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/c/c1/Hikaku_Uchiha.png/revision/latest/scale-to-width-down/300?cb=20140831140525",
+    "kana": "ウチハヒカク",
+    "background": 4
+  },
+  {
+    "name": "うちはタジマ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/2/26/Tajima_Uchiha.png/revision/latest/scale-to-width-down/300?cb=20140710125908",
+    "kana": "ウチハタジマ",
+    "background": 4
+  },
+  {
+    "name": "ヤマト",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/f/f7/Yamato_newshot.png/revision/latest/scale-to-width-down/300?cb=20180920062234",
+    "kana": "ヤマト",
+    "background": 1
+  },
+  {
+    "name": "オオノキ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/6/67/%C5%8Cnoki.png/revision/latest/scale-to-width-down/300?cb=20181203071043",
+    "kana": "オオノキ",
+    "background": 6
+  },
+  {
+    "name": "三代目星影",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/5/5f/Third_Hoshikage_new.png/revision/latest/scale-to-width-down/300?cb=20150529111012",
+    "kana": "サンダイメホシカゲ",
+    "background": 6
+  },
+  {
+    "name": "大筒木ハムラ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/e/e8/Hamura.png/revision/latest/scale-to-width-down/300?cb=20170924134057",
+    "kana": "オオツツキハムラ",
+    "background": 5
+  },
+  {
+    "name": "守鶴",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/9/99/Shukaku.png/revision/latest/scale-to-width-down/300?cb=20140916210030",
+    "kana": "シュカク",
+    "background": 5
+  },
+  {
+    "name": "キラービー",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/6/63/Killer_B.png/revision/latest/scale-to-width-down/300?cb=20180425141557",
+    "kana": "キラービー",
+    "background": 5
+  },
+  {
+    "name": "ミフネ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/e/ee/Mifune.png/revision/latest/scale-to-width-down/300?cb=20150514152216",
+    "kana": "ミフネ",
+    "background": 1
+  },
+  {
+    "name": "うたたねコハル",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/9/9f/Koharu_Utatane.png/revision/latest/scale-to-width-down/300?cb=20150129220149",
+    "kana": "ウタタネコハル",
+    "background": 1
+  },
+  {
+    "name": "水戸門ホムラ",
+    "picture": "https://static.wikia.nocookie.net/naruto/images/1/1b/Homura_Mitokado.png/revision/latest/scale-to-width-down/300?cb=20160115174641",
+    "kana": "ミトカドホムラ",
+    "background": 1
+  }
+]

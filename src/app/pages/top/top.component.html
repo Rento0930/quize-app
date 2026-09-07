@@ -1,0 +1,24 @@
+<div class="top-screen">
+
+  <div class="decoration-ring">
+    <img
+      *ngFor="let img of decorationImages; let i = index"
+      [src]="img"
+      class="decoration-img"
+      [style.animation-delay.s]="i * 0.3"
+      alt="">
+  </div>
+
+  <div class="title-card">
+    <div class="title-banner">
+      <span class="pokeball-icon pokeball-icon--xl"></span>
+      <h1>ポケモン<br>クイズ</h1>
+      <span class="pokeball-icon pokeball-icon--xl"></span>
+    </div>
+
+    <button type="button" class="play-btn" (click)="start()">
+      <span class="pokeball-icon"></span>
+      スタート
+    </button>
+  </div>
+</div>

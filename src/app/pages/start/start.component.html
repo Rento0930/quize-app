@@ -1,0 +1,53 @@
+<div class="start-screen">
+
+  <div class="decoration-row">
+    <img
+      *ngFor="let img of decorationImages"
+      [src]="img"
+      class="decoration-img"
+      alt="">
+  </div>
+
+  <div class="top-banner">
+    <span class="pokeball-icon pokeball-icon--lg"></span>
+    <h1>ポケモンクイズ</h1>
+    <span class="pokeball-icon pokeball-icon--lg"></span>
+  </div>
+
+  <div class="nickname-area">
+    <p class="nickname-label">トレーナー名</p>
+    <div class="nickname-form">
+      <input
+        type="text"
+        [(ngModel)]="nicknameInput"
+        maxlength="20"
+        placeholder="ニックネーム">
+    </div>
+  </div>
+
+  <div class="resume-area" *ngIf="progress">
+    <p>前回の続きがあります(「{{ progress.difficulty }}」{{ progress.questionIndex }}問目)</p>
+    <button type="button" class="resume-btn" (click)="resumeQuiz()">
+      前回の続きから
+    </button>
+  </div>
+
+  <div class="difficulty-area">
+    <p class="difficulty-label">難易度を選んでください</p>
+    <div class="difficulty-buttons">
+      <button
+        type="button"
+        *ngFor="let difficulty of difficulties"
+        class="difficulty-btn"
+        [ngClass]="['difficulty-btn--' + difficulty, difficulty === selectedDifficulty ? 'selected' : '']"
+        (click)="selectedDifficulty = difficulty">
+        {{ difficulty }}
+      </button>
+    </div>
+  </div>
+
+  <button type="button" class="start-btn" (click)="startQuiz()" [disabled]="!nicknameInput.trim()">
+    <span class="pokeball-icon"></span>
+    クイズ開始
+  </button>
+</div>

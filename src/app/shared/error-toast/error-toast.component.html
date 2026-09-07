@@ -1,0 +1,4 @@
+<div class="error-toast" *ngIf="errorToastService.message$ | async as message" (click)="errorToastService.dismiss()">
+  <span class="error-toast__icon">⚠️</span>
+  <span class="error-toast__text">{{ message }}</span>
+</div>

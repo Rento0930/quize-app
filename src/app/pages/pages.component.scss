@@ -1,0 +1,9 @@
+.body-container {
+    display: flex;
+    height: calc(100vh - 52px);
+}
+
+.content-area {
+    flex: 1;
+    overflow-y: auto;
+}

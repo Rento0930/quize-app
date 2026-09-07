@@ -1,0 +1,7 @@
+<div class="confirm-fullscreen" [ngClass]="isCorrect ? 'correct' : 'incorrect'">
+  <div class="confirm-fullscreen__inner">
+    <span class="confirm-fullscreen__icon">{{ isCorrect ? '⭕' : '❌' }}</span>
+    <p class="confirm-fullscreen__label">{{ isCorrect ? 'せいかい！' : 'ざんねん…' }}</p>
+    <p class="confirm-fullscreen__answer" *ngIf="!isCorrect && correctAnswer">正解：{{ correctAnswer }}</p>
+  </div>
+</div>

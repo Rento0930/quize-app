@@ -1,1 +1,162 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: 'M PLUS Rounded 1c', Roboto, "Helvetica Neue", sans-serif;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  // ラベルなど色を個別指定していないテキストが継承する既定の文字色。
+  // これが無いとハイコントラストモードでカード背景が暗くなった際、
+  // 既定色(黒)のまま埋もれて読めなくなる(realm-narutoは既にcolor指定済み)。
+  color: var(--text-main);
+
+  /* ==== ポケモン世界(既定)テーマ ==== */
+  --accent: #d32f2f;
+  --accent-soft: #fce4ec;
+  --bg-start: #fffde7;
+  --bg-end: #e1f5fe;
+  --choice-1: hsl(from var(--accent) h 55% 50%);
+  --choice-2: hsl(from var(--accent) calc(h + 90) 55% 50%);
+  --choice-3: hsl(from var(--accent) calc(h + 180) 55% 50%);
+  --choice-4: hsl(from var(--accent) calc(h + 270) 55% 50%);
+
+  --font-heading: 'M PLUS Rounded 1c', 'Roboto', sans-serif;
+  --font-body: 'M PLUS Rounded 1c', 'Roboto', sans-serif;
+  --surface: rgba(255, 255, 255, 0.92);
+  --surface-strong: #ffffff;
+  --surface-border: var(--accent);
+  --card-radius: 26px;
+  --card-shadow: 0 14px 34px rgba(0, 0, 0, 0.14), 0 2px 0 rgba(255, 255, 255, 0.6) inset;
+  --text-main: #3a3a3a;
+  --text-sub: #6b6b6b;
+}
+
+html.font-small { font-size: 70%; }
+html.font-medium { font-size: 100%; }
+html.font-large { font-size: 140%; }
+
+/* ==========================================================================
+   「デザインテーマ」(realm-pokemon / realm-naruto、app.component.tsがルートに
+   応じて自動で切り替える世界観そのもの)と「アクセントカラー」(color-*、設定
+   画面でユーザーが選ぶ配色)は別軸の設定として分離している。
+   - デザインテーマ: 背景・カード形状・装飾・フォント・アニメーションなど
+     「世界観」を決める。ThemeBackgroundComponentの背景装飾など、作品の空気感
+     を表す部分の色(空の青・炎の朱色など)はアクセントカラーの影響を受けない。
+   - アクセントカラー: --accent系の変数のみを差し替える。テーマごとに同じ
+     「青」でも実際の色味は変える(下記の realm-pokemon.color-xxx / realm-naruto.color-xxx)。
+   新しいテーマを追加する場合は、同じ形で body.realm-xxx ブロックと
+   body.realm-xxx.color-xxx の上書きを追加すればよい。
+   ハイコントラストは配色の1つではなく独立したアクセシビリティ機能とし、
+   AppSettingsServiceがbodyのインラインstyleで最優先に上書きする。
+   ========================================================================== */
+
+/* ==== ポケモン世界:アクセントカラー(既定=赤はbody基本値のまま) ==== */
+body.realm-pokemon.color-blue {
+  --accent: #1565c0;
+  --accent-soft: #bbdefb;
+  --bg-start: #e3f2fd;
+  --bg-end: #90caf9;
+}
+
+body.realm-pokemon.color-green {
+  --accent: #2e7d32;
+  --accent-soft: #c8e6c9;
+  --bg-start: #e8f5e9;
+  --bg-end: #b2dfdb;
+}
+
+body.realm-pokemon.color-purple {
+  --accent: #6a1b9a;
+  --accent-soft: #e1bee7;
+  --bg-start: #f3e5f5;
+  --bg-end: #d1c4e9;
+}
+
+body.realm-pokemon.color-yellow {
+  --accent: #f9a825;
+  --accent-soft: #fff9c4;
+  --bg-start: #fffde7;
+  --bg-end: #ffe082;
+}
+
+/* ==== NARUTO世界(早押しクイズ)テーマ ==== */
+body.realm-naruto {
+  font-family: 'Shippori Mincho', 'M PLUS Rounded 1c', serif;
+  color: #f3ead9;
+  background-color: #1a1512;
+
+  /* アクセントカラー既定値(赤=朱色/チャクラの炎) */
+  --accent: #d84315;
+  --accent-soft: #4e342e;
+  --bg-start: #221a16;
+  --bg-end: #0f0b09;
+
+  /* 選択肢ボタンの4色はアクセントカラーから自動生成(彩度・明度は世界観を壊さない濃さに抑える) */
+  --choice-1: hsl(from var(--accent) h 55% 42%);
+  --choice-2: hsl(from var(--accent) calc(h + 90) 50% 38%);
+  --choice-3: hsl(from var(--accent) calc(h + 180) 40% 32%);
+  --choice-4: hsl(from var(--accent) calc(h + 270) 45% 35%);
+
+  /* 見出し等で使う「金色っぽいグロー」「明るいアクセント」もアクセントカラーから派生させる */
+  --heading-glow: color-mix(in srgb, var(--accent) 55%, #ffe0b2 45%);
+  --accent-bright: color-mix(in srgb, var(--accent) 70%, #ffffff 30%);
+
+  --font-heading: 'Yuji Syuku', 'Shippori Mincho', serif;
+  --font-body: 'Shippori Mincho', 'M PLUS Rounded 1c', serif;
+  --surface: rgba(38, 30, 26, 0.92);
+  --surface-strong: #2a201b;
+  --surface-border: var(--accent);
+  --card-radius: 6px;
+  --card-shadow: 0 18px 40px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(216, 67, 21, 0.25) inset;
+  --text-main: #f3ead9;
+  --text-sub: #cbb99c;
+}
+
+body.realm-naruto.color-blue {
+  --accent: #3949ab;
+  --accent-soft: #2b3060;
+}
+
+body.realm-naruto.color-green {
+  --accent: #2e7d32;
+  --accent-soft: #1f3322;
+}
+
+body.realm-naruto.color-purple {
+  --accent: #8e24aa;
+  --accent-soft: #3a1f40;
+}
+
+body.realm-naruto.color-yellow {
+  --accent: #f9a825;
+  --accent-soft: #3a2f14;
+}
+
+/* ===== 共有アニメーション ===== */
+@keyframes pk-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(3deg); }
+}
+
+@keyframes pk-sparkle {
+  0%, 100% { opacity: 0.15; transform: scale(0.8); }
+  50% { opacity: 0.9; transform: scale(1.15); }
+}
+
+@keyframes na-smoke-drift {
+  0% { transform: translate(-4%, 0) scale(1); opacity: 0.35; }
+  50% { transform: translate(4%, -3%) scale(1.06); opacity: 0.5; }
+  100% { transform: translate(-4%, 0) scale(1); opacity: 0.35; }
+}
+
+@keyframes na-ember-flicker {
+  0%, 100% { opacity: 0.5; }
+  45% { opacity: 1; }
+  55% { opacity: 0.7; }
+}
+
+@keyframes na-ink-in {
+  0% { clip-path: circle(0% at 50% 50%); opacity: 0; }
+  100% { clip-path: circle(140% at 50% 50%); opacity: 1; }
+}

@@ -1,0 +1,14 @@
+<div class="pause-dialog-backdrop" (click)="cancelPause.emit()">
+  <div class="pause-dialog" (click)="$event.stopPropagation()">
+    <h3 class="pause-dialog__title">{{ title }}</h3>
+    <p class="pause-dialog__message">{{ message }}</p>
+    <div class="pause-dialog__actions">
+      <button type="button" class="pause-dialog__btn pause-dialog__btn--save" (click)="confirmPause.emit()">
+        中断して保存
+      </button>
+      <button type="button" class="pause-dialog__btn pause-dialog__btn--cancel" (click)="cancelPause.emit()">
+        キャンセル
+      </button>
+    </div>
+  </div>
+</div>

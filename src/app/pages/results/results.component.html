@@ -1,0 +1,39 @@
+<div class="results">
+  <div class="top-banner">
+    <span class="pokeball-icon"></span>
+    <h2>ランキング</h2>
+    <span class="pokeball-icon"></span>
+  </div>
+
+  <div class="difficulty-tabs">
+    <button
+      type="button"
+      *ngFor="let difficulty of difficulties"
+      class="tab-btn"
+      [ngClass]="['tab-btn--' + difficulty, difficulty === selectedDifficulty ? 'active' : '']"
+      (click)="selectDifficulty(difficulty)">
+      {{ difficulty }}
+    </button>
+  </div>
+
+  <div class="results-list" *ngIf="(ranking$ | async)?.length; else empty">
+    <div
+      class="result-card"
+      *ngFor="let result of ranking$ | async; let i = index"
+      [ngClass]="{ 'result-card--me': result.uid === currentUid }">
+      <span class="rank">{{ medalFor(i) || (i + 1) }}</span>
+      <div class="result-card__body">
+        <p class="result-card__name">{{ result.nickname }}</p>
+        <p class="result-card__score">{{ result.correctCount }} / {{ result.questionCount }} 問正解</p>
+        <p class="result-card__date">{{ formatDate(result.playedAt) }}</p>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #empty>
+    <div class="empty-area">
+      <span class="pokeball-icon pokeball-icon--lg"></span>
+      <p>まだこの難易度の記録がありません。挑戦してみましょう。</p>
+    </div>
+  </ng-template>
+</div>

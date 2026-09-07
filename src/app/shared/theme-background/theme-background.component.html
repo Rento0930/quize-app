@@ -1,0 +1,54 @@
+<div
+  class="theme-bg"
+  [class.theme-bg--pokemon]="!(realmService.isNaruto$ | async)"
+  [class.theme-bg--naruto]="realmService.isNaruto$ | async">
+
+  <!-- ============ ポケモン世界 ============ -->
+  <div class="pkbg">
+    <div class="pkbg__base"></div>
+    <div class="pkbg__map-pattern"></div>
+    <div class="pkbg__glow pkbg__glow--sky"></div>
+    <div class="pkbg__glow pkbg__glow--sun"></div>
+    <div class="pkbg__glow pkbg__glow--spark"></div>
+    <div class="pkbg__glass"></div>
+    <div class="pkbg__pokeball-ring"></div>
+    <div class="pkbg__pokeball-ring pkbg__pokeball-ring--small"></div>
+    <div class="pkbg__particles">
+      <span
+        *ngFor="let p of pokemonParticles"
+        [style.left.%]="p.left"
+        [style.top.%]="p.top"
+        [style.width.px]="p.size"
+        [style.height.px]="p.size"
+        [style.animation-delay.s]="p.delay"
+        [style.animation-duration.s]="p.duration"></span>
+    </div>
+  </div>
+
+  <!-- ============ NARUTO世界 ============ -->
+  <div class="nabg">
+    <div class="nabg__base"></div>
+    <div class="nabg__grain"></div>
+    <div class="nabg__glow nabg__glow--ember-a"></div>
+    <div class="nabg__glow nabg__glow--ember-b"></div>
+    <div class="nabg__ensou"></div>
+    <div class="nabg__ensou nabg__ensou--small"></div>
+    <div class="nabg__kanji" data-glyph="忍"></div>
+    <div class="nabg__kanji nabg__kanji--secondary" data-glyph="火"></div>
+    <div class="nabg__smoke">
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <div class="nabg__embers">
+      <span
+        *ngFor="let e of emberParticles"
+        [style.left.%]="e.left"
+        [style.top.%]="e.top"
+        [style.width.px]="e.size"
+        [style.height.px]="e.size"
+        [style.animation-delay.s]="e.delay"
+        [style.animation-duration.s]="e.duration"></span>
+    </div>
+  </div>
+
+  <div class="theme-bg__overlay"></div>
+</div>

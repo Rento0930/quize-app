@@ -1,0 +1,19 @@
+<header class="app-header" [class.app-header--naruto]="realmService.isNaruto$ | async">
+  <div class="app-header__brand">
+    <ng-container *ngIf="!(realmService.isNaruto$ | async); else narutoBrand">
+      <span class="brand-icon brand-icon--pokeball"></span>
+      <span class="brand-title">ポケモンクイズ</span>
+    </ng-container>
+    <ng-template #narutoBrand>
+      <span class="brand-icon brand-icon--kunai">🗲</span>
+      <span class="brand-title">NARUTO早押しクイズ</span>
+    </ng-template>
+  </div>
+
+  <span class="app-header__spacer"></span>
+
+  <button type="button" class="app-header__btn" routerLink="/">トップ</button>
+  <ng-container *ngIf="user$ | async">
+    <button type="button" class="app-header__btn app-header__btn--ghost" (click)="logout()">ログアウト</button>
+  </ng-container>
+</header>

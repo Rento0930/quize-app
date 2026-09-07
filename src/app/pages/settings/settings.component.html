@@ -1,0 +1,93 @@
+<div class="settings">
+  <div class="top-banner">
+    <span class="pokeball-icon"></span>
+    <h2>設定</h2>
+    <span class="pokeball-icon"></span>
+  </div>
+
+  <div class="settings-card">
+    <label class="settings-label">中級のヒント回数(1クイズあたり)</label>
+    <div class="settings-form">
+      <input
+        type="number"
+        [(ngModel)]="hintLimit"
+        (change)="saveHintLimit()"
+        min="1"
+        max="99">
+      <span class="unit">回</span>
+    </div>
+  </div>
+
+  <div class="settings-card">
+    <label class="settings-label">文字の大きさ</label>
+    <div class="option-buttons">
+      <button
+        type="button"
+        *ngFor="let size of fontSizeOptions"
+        [ngClass]="{ active: fontSize === size }"
+        (click)="selectFontSize(size)">
+        {{ size === 'small' ? '小' : size === 'medium' ? '中' : '大' }}
+      </button>
+    </div>
+  </div>
+
+  <div class="settings-card">
+    <label class="settings-label">アクセントカラー</label>
+    <p class="settings-hint">
+      デザインテーマ(背景・カード・装飾)はプレイ中のゲーム(ポケモン/NARUTO)に応じて自動で切り替わります。
+      ここでは、そのテーマの中で使うアクセントカラーだけを選べます。
+    </p>
+    <div class="color-swatch-buttons">
+      <button
+        type="button"
+        *ngFor="let option of colorOptions"
+        class="color-swatch-btn"
+        [style.--swatch-color]="option.swatch"
+        [ngClass]="{ active: color === option.value }"
+        [attr.aria-label]="option.label"
+        (click)="selectColor(option.value)">
+        <span class="color-swatch-btn__dot"></span>
+        <span class="color-swatch-btn__label">{{ option.label }}</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="settings-card">
+    <label class="settings-label">ハイコントラストモード</label>
+    <p class="settings-hint">アクセントカラーの代わりに、視認性を最優先した固定配色を使います(アクセシビリティ機能)。</p>
+    <div class="option-buttons">
+      <button
+        type="button"
+        [ngClass]="{ active: highContrast }"
+        (click)="selectHighContrast(true)">
+        オン
+      </button>
+      <button
+        type="button"
+        [ngClass]="{ active: !highContrast }"
+        (click)="selectHighContrast(false)">
+        オフ
+      </button>
+    </div>
+  </div>
+
+  <div class="settings-card">
+    <label class="settings-label">効果音</label>
+    <div class="option-buttons">
+      <button
+        type="button"
+        [ngClass]="{ active: soundEnabled }"
+        (click)="selectSoundEnabled(true)">
+        オン
+      </button>
+      <button
+        type="button"
+        [ngClass]="{ active: !soundEnabled }"
+        (click)="selectSoundEnabled(false)">
+        オフ
+      </button>
+    </div>
+  </div>
+
+  <p class="saved-message" *ngIf="saved">✅ 保存しました</p>
+</div>
